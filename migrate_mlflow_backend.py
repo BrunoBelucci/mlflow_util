@@ -31,6 +31,7 @@ def create_run_from(from_run, from_client, to_experiment_id, to_client):
     for metric_key in metrics_keys:
         metrics = metrics + from_client.get_metric_history(from_run.info.run_id, metric_key)
     to_client.log_batch(new_run.info.run_id, metrics=metrics, params=params)
+    to_client.set_terminated(new_run.info.run_id, end_time=from_run.info.end_time, status=from_run.info.status)
 
 
 def migrate_mlflow_backend(from_tracking_uri, to_tracking_uri):
